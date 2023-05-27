@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('image');
             $table->text('description');
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

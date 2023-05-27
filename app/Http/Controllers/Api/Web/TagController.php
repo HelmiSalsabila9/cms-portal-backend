@@ -45,7 +45,7 @@ class TagController extends Controller
      */
     public function footer()
     {
-        $tags = Tag::latest()->take(10)->get();
+        $tags = Tag::latest()->take(12)->get();
 
         return new TagResource(true, 'List Data Tag', $tags);
     }

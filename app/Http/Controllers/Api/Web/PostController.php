@@ -20,7 +20,7 @@ class PostController extends Controller
         $posts = Post::with('user', 'category', 'tags', 'comments')->when(request()->q, function($posts) {
             $posts = $posts->where('title', 'like', '%'. request()->q . '%');
         })->latest()->paginate(9);
-
+        
         return new PostResource(true, 'List Data Posts', $posts);
     }
 
@@ -32,6 +32,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
+        Post::with('user', 'category', 'tags', 'comments')->where('slug', $slug)->first()->increment('views');
         $post = Post::with('user', 'category', 'tags', 'comments')->where('slug', $slug)->first();
 
         if ($post) {

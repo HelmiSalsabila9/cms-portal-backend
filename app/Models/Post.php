@@ -16,7 +16,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'slug', 'category_id', 'user_id', 'content', 'image', 'description'
+        'title', 'slug', 'category_id', 'user_id', 'content', 'image', 'description', 'views'
     ];
 
     /**
@@ -79,7 +79,7 @@ class Post extends Model
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => \Carbon\Carbon::parse($value)->translatedFormat('l, d F Y'),
+            get: fn ($value) => \Carbon\Carbon::parse($value)->translatedFormat('d F Y'),
         );
     }
 
@@ -91,7 +91,7 @@ class Post extends Model
     protected function updatedAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => \Carbon\Carbon::parse($value)->translatedFormat('l, d F Y'),
+            get: fn ($value) => \Carbon\Carbon::parse($value)->translatedFormat('d F Y'),
         );
     }
     

@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Web\CategoryController as WebCategoryController;
 use App\Http\Controllers\Api\Web\PostController as WebPostController;
 use App\Http\Controllers\Api\Web\MenuController as WebMenuController;
 use App\Http\Controllers\Api\Web\SliderController as WebSliderController;
+use App\Http\Controllers\Api\Web\SocialShareButtonsController as WebSharePage;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,5 +116,4 @@ Route::prefix('web')->group(function() {
 
     // Index Sliders
     Route::get('/sliders', [WebSliderController::class, 'index']);
-
 });

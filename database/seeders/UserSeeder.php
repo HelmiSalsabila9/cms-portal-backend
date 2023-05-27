@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'name' => 'Helmi Salsabila',
             'email' => 'adminmain@gmail.com',
             'telepon' => '085900386218',
-            'password' => Hash::make('secretmain'),
+            'password' => Hash::make('28secretmain28'),
         ]);
     }
 }
