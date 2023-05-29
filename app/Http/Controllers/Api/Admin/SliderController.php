@@ -55,6 +55,55 @@ class SliderController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $slide = Slider::whereId($id)->first();
+
+        if ($slide) {
+            return new SliderResource(true, 'Detail Data Slider', $slide);
+        }
+
+        return new SliderResource(false, 'Detail Data Slider Tidak Ditemukan', null);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Slider $slider)
+    {
+
+        // Cek image
+        if ($request->file('image')) {
+            // Hapus image lama
+            Storage::disk('local')->delete('public/sliders/' .basename($slider->image));
+
+            // Kemudian tampung
+            $image = $request->file('image');
+            $image->storeAs('public/sliders', $image->hashName());
+
+            $slider->update([
+                'image' => $image->hashName(),
+            ]);
+
+            if ($slider) {
+                return new SliderResource(true, 'Data Slider Berhasil Diupdate.', $slider);
+            }
+
+            return new SliderResource(false, 'Data Slider Gagal Diupdate.', null);
+        }
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
