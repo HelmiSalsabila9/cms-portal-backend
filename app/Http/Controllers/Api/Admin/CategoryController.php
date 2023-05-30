@@ -89,41 +89,45 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:categories,name,'. $category->id,
+            'name'     => 'required|unique:categories,name,'.$category->id,
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
-        } 
-
-        // cek image update
-        if ($request->file('image')) {
-            // Hapus image sebelumnya
-            Storage::disk('local')->delete('public/categories/' .basename($category->image));
-
-            // Kita tampung dan upload image
-            $image = $request->file('image');
-            $image->storeAs('pubilc/categories', $image->hashName());
-
-            // Update categpry with image
-            $category->update([
-                'image' => $image->hashName(),
-                'name' => $request->name,
-                'slug' => Str::slug($request->nanme, '-'),
-            ]);
         }
 
-        // Update without image
+        //check image update
+        if ($request->file('image')) {
+
+            //remove old image
+            Storage::disk('local')->delete('public/categories/'.basename($category->image));
+        
+            //upload new image
+            $image = $request->file('image');
+            $image->storeAs('public/categories', $image->hashName());
+
+            //update category with new image
+            $category->update([
+                'image'=> $image->hashName(),
+                'name' => $request->name,
+                'slug' => Str::slug($request->name, '-'),
+            ]);
+
+        }
+
+        //update category without image
         $category->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
         ]);
 
-        if ($category) {
-            return new CategoryResource(true, 'Data Category Berhasil Diupdate.', $category);
+        if($category) {
+            //return success with Api Resource
+            return new CategoryResource(true, 'Data Category Berhasil Diupdate!', $category);
         }
 
-        return new CategoryResource(false, 'Data Category Gagal Diupdate.', null);
+        //return failed with Api Resource
+        return new CategoryResource(false, 'Data Category Gagal Diupdate!', null);
     }
 
     /**
