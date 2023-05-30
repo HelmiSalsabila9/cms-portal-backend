@@ -94,7 +94,7 @@ class PostController extends Controller
     public function storeImagePost(Request $request)
     {
         // Upload image
-        $image = $request->file('image');
+        $image = $request->file('upload');
         $image->storeAs('public/post_images', $image->hashName());
 
         return response()->json([
