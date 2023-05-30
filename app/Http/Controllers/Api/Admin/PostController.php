@@ -137,11 +137,11 @@ class PostController extends Controller
 
         $post->update([
             'title'       => $request->title,
-                'slug'        => Str::slug($request->title, '-'),
-                'category_id' => $request->category_id,
-                'user_id'     => auth()->guard('api')->user()->id,
-                'content'     => $request->content,
-                'description' => $request->description   
+            'slug'        => Str::slug($request->title, '-'),
+            'category_id' => $request->category_id,
+            'user_id'     => auth()->guard('api')->user()->id,
+            'content'     => $request->content,
+            'description' => $request->description   
         ]);
 
         //sync tags
