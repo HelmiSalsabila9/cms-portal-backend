@@ -39,7 +39,7 @@ class DashboardController extends Controller
                 'categories' => $categories,
                 'menus' => $menus,
                 'sliders' => $sliders,
-                'users' => $users
+                'users' => $users,
             ],
         ], 200);
     }
