@@ -16,13 +16,11 @@ jobs:
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Depedencies
-      run: composer update --ignore-platform-reqs
+      run: composer install
     - name: Generate key
       run: php artisan key:generate
     - name: Genenrate storage link
       run: php artisan storage:link
-    - name: Directory Permission
-      run: chmod -R 777 storage bootstrap/cache
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
