@@ -9,18 +9,9 @@ jobs:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-    - name: Get the latest code
-      uses: actions/checkout@v2.1.0
+    - uses: actions/checkout@v2.1.0
       with:
         fetch-depth: 2
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Depedencies
-      run: composer install
-    - name: Generate key
-      run: php artisan key:generate
-    - name: Genenrate storage link
-      run: php artisan storage:link
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
