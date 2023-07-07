@@ -9,10 +9,6 @@ jobs:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-    - name: Composer Depedencies
-      run: composer install
-    - name: Storage link
-      run: php artisan storage:link
     - uses: actions/checkout@v2.1.0
       with:
         fetch-depth: 2
